@@ -45,13 +45,13 @@ public class GridSquare
     public void drawBody(Graphics g)
     {
         g.setColor(Color.GREEN);
-        g.fillOval(xPos+4, yPos+4, Constants.CELL_SIZE-8, Constants.CELL_SIZE-8);
+        g.fillOval(xPos+3, yPos+3, Constants.CELL_SIZE-6, Constants.CELL_SIZE-6);
     }
 
     public void drawApple(Graphics g)
     {
         g.setColor(Color.RED);
-        g.fillOval(xPos+6, yPos+6, Constants.CELL_SIZE-12, Constants.CELL_SIZE-12);
+        g.fillOval(xPos+4, yPos+4, Constants.CELL_SIZE-8, Constants.CELL_SIZE-8);
     }
 
 
