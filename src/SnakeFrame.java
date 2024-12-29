@@ -11,7 +11,7 @@ public class SnakeFrame extends JFrame implements ActionListener
     public SnakeFrame()
     {
         super("Snake!");
-        setSize(Constants.CELL_SIZE*Constants.NUM_COLUMNS,Constants.CELL_SIZE*Constants.NUM_ROWS+32);
+        setSize(Constants.CELL_SIZE*Constants.NUM_COLUMNS,Constants.CELL_SIZE*Constants.NUM_ROWS+68);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(new BorderLayout());
