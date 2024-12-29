@@ -36,6 +36,7 @@ public class SnakeFrame extends JFrame implements ActionListener
         if (e.getSource().equals(resetButton))
         {
             System.out.println("Reset pressed.");
+            mainPanel.reset();
         }
     }
 }
