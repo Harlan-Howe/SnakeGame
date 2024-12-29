@@ -8,6 +8,8 @@ public class MainSnakePanel extends JPanel implements Runnable {
     private volatile boolean running;
     private Thread animationThread;
 
+    private GridSquare[][] theGrid;
+
     // Add your animation state variables here
     private int animationStep = 0;
 
@@ -15,6 +17,17 @@ public class MainSnakePanel extends JPanel implements Runnable {
        setBackground(Color.WHITE);
         // Enable double buffering
         setDoubleBuffered(true);
+        generateGrid();
+    }
+
+    public void generateGrid()
+    {
+        theGrid = new GridSquare[Constants.NUM_ROWS][Constants.NUM_COLUMNS];
+        for (int r=0; r<Constants.NUM_ROWS; r++)
+            for (int c=0; c<Constants.NUM_COLUMNS; c++)
+            {
+                theGrid[r][c] = new GridSquare(r*Constants.CELL_SIZE, c*Constants.CELL_SIZE);
+            }
     }
 
     public void startAnimation() {
