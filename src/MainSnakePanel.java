@@ -9,6 +9,7 @@ public class MainSnakePanel extends JPanel implements Runnable {
     private Thread animationThread;
 
     private GridSquare[][] theGrid;
+    private GridSquare currentSquareWithApple;
 
     // Add your animation state variables here
     private int animationStep = 0;
@@ -30,6 +31,20 @@ public class MainSnakePanel extends JPanel implements Runnable {
                 if (r==0 || c==0 || r== Constants.NUM_ROWS-1 || c==Constants.NUM_COLUMNS-1)
                     theGrid[r][c].setState(Constants.CELL_STATE_WALL);
             }
+    }
+
+    public void resetApple()
+    {
+        if (currentSquareWithApple != null && currentSquareWithApple.getState() == Constants.CELL_STATE_APPLE)
+            currentSquareWithApple.setState(Constants.CELL_STATE_EMPTY);
+        do
+        {
+            currentSquareWithApple = theGrid[(int)(Math.random()*Constants.NUM_ROWS)]
+                    [(int)(Math.random()*Constants.NUM_COLUMNS)];
+
+        }while (currentSquareWithApple.getState() != Constants.CELL_STATE_EMPTY);
+
+        currentSquareWithApple.setState(Constants.CELL_STATE_APPLE);
     }
 
     public void startAnimation() {
