@@ -40,6 +40,8 @@ public class MainSnakePanel extends JPanel implements Runnable {
 
         // reset the apple
         resetApple();
+
+        repaint();
     }
 
     public void resetApple()
