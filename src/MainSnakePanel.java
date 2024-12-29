@@ -19,6 +19,7 @@ public class MainSnakePanel extends JPanel implements Runnable {
         // Enable double buffering
         setDoubleBuffered(true);
         generateGrid();
+        reset();
     }
 
     public void generateGrid()
@@ -31,6 +32,14 @@ public class MainSnakePanel extends JPanel implements Runnable {
                 if (r==0 || c==0 || r== Constants.NUM_ROWS-1 || c==Constants.NUM_COLUMNS-1)
                     theGrid[r][c].setState(Constants.CELL_STATE_WALL);
             }
+    }
+
+    public void reset()
+    {
+        // reset the snake
+
+        // reset the apple
+        resetApple();
     }
 
     public void resetApple()
