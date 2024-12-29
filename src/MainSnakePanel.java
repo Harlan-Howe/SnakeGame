@@ -98,8 +98,9 @@ public class MainSnakePanel extends JPanel implements Runnable {
     private void drawAnimation(Graphics2D g2d) {
         // Add your drawing code here
         // Example: Draw a moving rectangle
-        g2d.setColor(Color.BLUE);
-        g2d.fillRect(animationStep % getWidth(), 50, 50, 50);
+        for (GridSquare[] row: theGrid)
+            for (GridSquare square: row)
+                square.drawSelf(g2d);
     }
 
     // Example usage
