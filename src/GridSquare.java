@@ -17,6 +17,11 @@ public class GridSquare
         this.state = state;
     }
 
+    public int getState()
+    {
+        return state;
+    }
+
     public void drawSelf(Graphics g)
     {
         g.setColor(Color.BLACK);
