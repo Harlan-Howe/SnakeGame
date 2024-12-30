@@ -20,9 +20,13 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
 
     public MainSnakePanel() {
        setBackground(Color.WHITE);
+
         // Enable double buffering
         setDoubleBuffered(true);
-        generateGrid();
+
+        setFocusable(true);
+        requestFocusInWindow();
+        addKeyListener(this);
         reset();
     }
 
@@ -53,6 +57,7 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
 
     public void reset()
     {
+        stopAnimation();
         generateGrid();
         // reset the snake
         currentRowOfHead = Constants.NUM_ROWS/2;
@@ -61,7 +66,7 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
         theGrid[currentRowOfHead][currentColOfHead].setState(Constants.CELL_STATE_SNAKE_HEAD_N);
         // reset the apple
         resetApple();
-
+        startAnimation();
         repaint();
     }
 
@@ -100,6 +105,7 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
 
     @Override
     public void run() {
+        requestFocusInWindow();
         while (running) {
             // Update animation state
             updateAnimation();
@@ -120,8 +126,44 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
     private void updateAnimation() {
         // Update your animation state here
         animationStep++;
+        theGrid[currentRowOfHead][currentColOfHead].setState(Constants.CELL_STATE_EMPTY);
+        int destRow, destCol;
+        if (currentDirection == Constants.DIRECTION_RIGHT)
+        {
+            destRow = currentRowOfHead;
+            destCol = currentColOfHead+1;
+        }
+        else if (currentDirection == Constants.DIRECTION_DOWN)
+        {
+            destRow = currentRowOfHead+1;
+            destCol = currentColOfHead;
+        }
+        else if (currentDirection == Constants.DIRECTION_LEFT)
+        {
+            destRow = currentRowOfHead;
+            destCol = currentColOfHead-1;
+        }
+        else // if (currentDirection == Constants.DIRECTION_UP)
+        {
+            destRow = currentRowOfHead-1;
+            destCol = currentColOfHead;
+        }
         // Add your animation logic here
-
+        int destination_state = theGrid[destRow][destCol].getState();
+        if (destination_state == Constants.CELL_STATE_APPLE)
+        {
+            System.out.println("Ate apple.");
+            resetApple();
+        }
+        else if (destination_state != Constants.CELL_STATE_EMPTY)
+        {
+            System.out.println("Crashed.");
+            running = false;
+        }
+        currentRowOfHead = destRow;
+        currentColOfHead = destCol;
+        theGrid[currentRowOfHead][currentColOfHead].setState(Constants.CELL_STATE_SNAKE_HEAD_W+currentDirection);
+        repaint();
     }
 
     @Override
@@ -162,6 +204,7 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
     @Override
     public void keyPressed(KeyEvent e)
     {
+        System.out.println(STR."pressed:\{e.getKeyChar()}");
         switch (e.getKeyCode())
         {
             case Constants.leftKey:
