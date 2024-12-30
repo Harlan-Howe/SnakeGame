@@ -23,6 +23,16 @@ public class GridSquare
         return state;
     }
 
+    public int getRow()
+    {
+        return yPos/Constants.CELL_SIZE;
+    }
+
+    public int getCol()
+    {
+        return xPos/Constants.CELL_SIZE;
+    }
+
     public void drawSelf(Graphics g)
     {
         g.setColor(Color.BLACK);
