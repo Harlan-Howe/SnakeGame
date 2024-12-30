@@ -3,13 +3,16 @@ import java.awt.*;
 import java.awt.event.*;
 
 // NOTE: initial draft of this class was written by Flint K12.
-public class MainSnakePanel extends JPanel implements Runnable {
+public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
     private static final long DELAY = 250; // 0.25 seconds in milliseconds
     private volatile boolean running;
     private Thread animationThread;
 
     private GridSquare[][] theGrid;
     private GridSquare currentSquareWithApple;
+
+    private int currentDirection = Constants.DIRECTION_UP;
+    private boolean leftKeyPressed, rightKeyPressed, upKeyPressed, downKeyPressed;
 
     // Add your animation state variables here
     private int animationStep = 0;
@@ -129,6 +132,80 @@ public class MainSnakePanel extends JPanel implements Runnable {
         for (GridSquare[] row: theGrid)
             for (GridSquare square: row)
                 square.drawSelf(g2d);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e)
+    {
+        ; // do nothing.
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e)
+    {
+        switch (e.getKeyCode())
+        {
+            case Constants.leftKey:
+                leftKeyPressed = true;
+                if (currentDirection != Constants.DIRECTION_RIGHT)
+                    currentDirection = Constants.DIRECTION_LEFT;
+                break;
+            case Constants.rightKey:
+                rightKeyPressed = true;
+                if (currentDirection != Constants.DIRECTION_LEFT)
+                    currentDirection = Constants.DIRECTION_RIGHT;
+                break;
+            case Constants.upKey:
+                upKeyPressed = true;
+                if (currentDirection != Constants.DIRECTION_DOWN)
+                    currentDirection = Constants.DIRECTION_UP;
+                break;
+            case Constants.downKey:
+                downKeyPressed = true;
+                if (currentDirection != Constants.DIRECTION_UP)
+                    currentDirection = Constants.DIRECTION_DOWN;
+                break;
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e)
+    {
+        switch (e.getKeyCode())
+        {
+            case Constants.leftKey:
+                leftKeyPressed = false;
+                if (currentDirection == Constants.DIRECTION_LEFT)
+                    if(upKeyPressed && ! downKeyPressed)
+                        currentDirection = Constants.DIRECTION_UP;
+                    else if (!upKeyPressed && downKeyPressed)
+                        currentDirection = Constants.DIRECTION_DOWN;
+                break;
+            case Constants.rightKey:
+                rightKeyPressed = false;
+                if (currentDirection == Constants.DIRECTION_RIGHT)
+                    if(upKeyPressed && ! downKeyPressed)
+                        currentDirection = Constants.DIRECTION_UP;
+                    else if (!upKeyPressed && downKeyPressed)
+                        currentDirection = Constants.DIRECTION_DOWN;
+                break;
+            case Constants.upKey:
+                upKeyPressed = false;
+                if (currentDirection == Constants.DIRECTION_UP)
+                    if(leftKeyPressed && ! rightKeyPressed)
+                        currentDirection = Constants.DIRECTION_LEFT;
+                    else if (!leftKeyPressed && rightKeyPressed)
+                        currentDirection = Constants.DIRECTION_RIGHT;
+                break;
+            case Constants.downKey:
+                downKeyPressed = false;
+                if (currentDirection == Constants.DIRECTION_DOWN)
+                    if(leftKeyPressed && ! rightKeyPressed)
+                        currentDirection = Constants.DIRECTION_LEFT;
+                    else if (!leftKeyPressed && rightKeyPressed)
+                        currentDirection = Constants.DIRECTION_RIGHT;
+                break;
+        }
     }
 
     // Example usage
