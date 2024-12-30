@@ -35,10 +35,19 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
                 if (r==0 || c==0 || r== Constants.NUM_ROWS-1 || c==Constants.NUM_COLUMNS-1)
                     theGrid[r][c].setState(Constants.CELL_STATE_WALL);
             }
-        //temp
+        /* Uncomment out these lines (temporarily) to see what the snake parts look like.
         theGrid[10][10].setState(Constants.CELL_STATE_SNAKE_BODY_E_W);
         theGrid[10][11].setState(Constants.CELL_STATE_SNAKE_BODY_NW_SE);
         theGrid[11][11].setState(Constants.CELL_STATE_SNAKE_BODY_N_S);
+        theGrid[12][11].setState(Constants.CELL_STATE_SNAKE_BODY_NE_SW);
+        theGrid[12][10].setState(Constants.CELL_STATE_SNAKE_HEAD_E);
+
+        theGrid[15][15].setState(Constants.CELL_STATE_SNAKE_HEAD_W);
+        theGrid[17][15].setState(Constants.CELL_STATE_SNAKE_HEAD_N);
+        theGrid[19][15].setState(Constants.CELL_STATE_SNAKE_HEAD_S);
+        theGrid[21][15].setState(Constants.CELL_STATE_SNAKE_TAIL);
+        */
+
     }
 
     public void reset()
