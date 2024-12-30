@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 public class SnakeFrame extends JFrame implements ActionListener
 {
     private JButton resetButton;
-    private MainSnakePanel mainPanel;
+    private final MainSnakePanel mainPanel;
 
     public SnakeFrame()
     {
