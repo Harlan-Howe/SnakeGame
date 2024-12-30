@@ -17,6 +17,7 @@ public class SnakeFrame extends JFrame implements ActionListener
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(buildControlPanel(), BorderLayout.NORTH);
         mainPanel = new MainSnakePanel();
+        mainPanel.requestFocusInWindow();
         getContentPane().add(mainPanel, BorderLayout.CENTER);
     }
 
@@ -25,7 +26,9 @@ public class SnakeFrame extends JFrame implements ActionListener
         JPanel result = new JPanel(new FlowLayout(FlowLayout.CENTER));
         resetButton = new JButton("Reset");
         resetButton.addActionListener(this);
+        resetButton.setFocusable(false);
         result.add(resetButton);
+
 
         return result;
     }
