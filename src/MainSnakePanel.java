@@ -31,12 +31,14 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
         for (int r=0; r<Constants.NUM_ROWS; r++)
             for (int c=0; c<Constants.NUM_COLUMNS; c++)
             {
-                theGrid[r][c] = new GridSquare(r*Constants.CELL_SIZE, c*Constants.CELL_SIZE);
+                theGrid[r][c] = new GridSquare(c*Constants.CELL_SIZE, r*Constants.CELL_SIZE);
                 if (r==0 || c==0 || r== Constants.NUM_ROWS-1 || c==Constants.NUM_COLUMNS-1)
                     theGrid[r][c].setState(Constants.CELL_STATE_WALL);
             }
         //temp
         theGrid[10][10].setState(Constants.CELL_STATE_SNAKE_BODY_E_W);
+        theGrid[10][11].setState(Constants.CELL_STATE_SNAKE_BODY_NW_SE);
+        theGrid[11][11].setState(Constants.CELL_STATE_SNAKE_BODY_N_S);
     }
 
     public void reset()
