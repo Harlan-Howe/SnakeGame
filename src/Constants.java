@@ -2,7 +2,7 @@ import java.awt.event.KeyEvent;
 
 public interface Constants
 {
-    public final int CELL_SIZE = 15;
+    public final int CELL_SIZE = 20;
     public final int NUM_COLUMNS = 40;
     public final int NUM_ROWS = 40;
 
