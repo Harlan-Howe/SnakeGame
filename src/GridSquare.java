@@ -2,7 +2,7 @@ import java.awt.*;
 
 public class GridSquare
 {
-    private int xPos, yPos;
+    private final int xPos, yPos;
     private int state;
     private final Color BROWN = new Color(128,64,0);
 
