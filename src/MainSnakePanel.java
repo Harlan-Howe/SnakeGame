@@ -15,6 +15,7 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
     private int currentDirection = Constants.DIRECTION_UP;
     private boolean leftKeyPressed, rightKeyPressed, upKeyPressed, downKeyPressed;
 
+
     // Add your animation state variables here
     private int animationStep = 0;
 
@@ -30,6 +31,9 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
         reset();
     }
 
+    /**
+     * create the 2-d grid of GridSquares and set the ones on the border to have a state of "wall."
+     */
     public void generateGrid()
     {
         theGrid = new GridSquare[Constants.NUM_ROWS][Constants.NUM_COLUMNS];
@@ -55,6 +59,11 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
 
     }
 
+    /**
+     * restart the game, stopping the current run (if there is one), recreating the board, restarting the snake,
+     * picking a new apple and starting the run again. This is called at the start of the game, as well as when the
+     * "Reset" button is pressed.
+     */
     public void reset()
     {
         stopAnimation();
@@ -70,6 +79,9 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
         repaint();
     }
 
+    /**
+     * select a new, unoccupied location for the apple.
+     */
     public void resetApple()
     {
         if (currentSquareWithApple != null && currentSquareWithApple.getState() == Constants.CELL_STATE_APPLE)
@@ -84,6 +96,9 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
         currentSquareWithApple.setState(Constants.CELL_STATE_APPLE);
     }
 
+    /**
+     * begin the multithreaded execution of the animation loop.
+     */
     public void startAnimation() {
         if (animationThread == null || !running) {
             running = true;
@@ -92,17 +107,24 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
         }
     }
 
+    /**
+     * stop the current execution of the animation loop.
+     */
     public void stopAnimation() {
         running = false;
         if (animationThread != null) {
             try {
-                animationThread.join();
+                animationThread.join(); // this stops the thread and brings its execution back to this one.
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
         }
     }
 
+    /**
+     * the code that is executed when we start the thread; in this case, it calls the updateAnimation() method over and
+     * over again and tells the screen to refresh when it can, with a delay between executions.
+     */
     @Override
     public void run() {
         requestFocusInWindow();
@@ -123,49 +145,52 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
         }
     }
 
+    /**
+     * the step of the animation that happens every DELAY ms. Attempts to move the snake's head by one,
+     * potentially eating an apple or crashing the snake in the process.
+     */
     private void updateAnimation() {
-        // Update your animation state here
+
         animationStep++;
-        theGrid[currentRowOfHead][currentColOfHead].setState(Constants.CELL_STATE_EMPTY);
+
+        // determine the location and state of the square where the head is about to go.
         int destRow, destCol;
-        if (currentDirection == Constants.DIRECTION_RIGHT)
-        {
-            destRow = currentRowOfHead;
-            destCol = currentColOfHead+1;
-        }
-        else if (currentDirection == Constants.DIRECTION_DOWN)
-        {
-            destRow = currentRowOfHead+1;
-            destCol = currentColOfHead;
-        }
-        else if (currentDirection == Constants.DIRECTION_LEFT)
-        {
-            destRow = currentRowOfHead;
-            destCol = currentColOfHead-1;
-        }
-        else // if (currentDirection == Constants.DIRECTION_UP)
-        {
-            destRow = currentRowOfHead-1;
-            destCol = currentColOfHead;
-        }
-        // Add your animation logic here
+        final int[][] deltas = {{0,+1}, {+1,0}, {0,-1}, {-1,0}};
+        destRow = currentRowOfHead+deltas[currentDirection][0];
+        destCol = currentColOfHead+deltas[currentDirection][1];
         int destination_state = theGrid[destRow][destCol].getState();
+
+        // Check whether there is an apple in that location.
         if (destination_state == Constants.CELL_STATE_APPLE)
         {
             System.out.println("Ate apple.");
             resetApple();
         }
-        else if (destination_state != Constants.CELL_STATE_EMPTY)
+
+        // clear the head from the current location (????)
+        theGrid[currentRowOfHead][currentColOfHead].setState(Constants.CELL_STATE_EMPTY);
+
+        // check whether the snake has crashed.
+        if (destination_state != Constants.CELL_STATE_EMPTY)
         {
             System.out.println("Crashed.");
             running = false;
+            repaint();
+            return;
         }
+
+        // move the head to the new location (????)
         currentRowOfHead = destRow;
         currentColOfHead = destCol;
         theGrid[currentRowOfHead][currentColOfHead].setState(Constants.CELL_STATE_SNAKE_HEAD_W+currentDirection);
+
         repaint();
     }
 
+    /**
+     * draw the grid of GridSquares.
+     * @param g the <code>Graphics</code> object to draw with/into
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -178,8 +203,10 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON);
 
-            // Draw your animated content here
-            drawAnimation(g2d);
+            // Draw your content here
+            for (GridSquare[] row: theGrid)
+                for (GridSquare square: row)
+                    square.drawSelf(g2d);
 
         } finally {
             // Dispose of the graphics copy
@@ -187,24 +214,26 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
         }
     }
 
-    private void drawAnimation(Graphics2D g2d) {
-        // Add your drawing code here
-        // Example: Draw a moving rectangle
-        for (GridSquare[] row: theGrid)
-            for (GridSquare square: row)
-                square.drawSelf(g2d);
-    }
-
+    /**
+     * we are required to have this method to fulfill the KeyListener Interface, but we aren't going to use it.
+     * This is another way to process keystrokes.
+     * @param e the event to be processed containing info about which key was pressed and released.
+     */
     @Override
     public void keyTyped(KeyEvent e)
     {
          // do nothing.
     }
 
+    /**
+     * respond to the user first pressing a key.
+     * @param e the event to be processed containing information about the keyPress.
+     */
     @Override
     public void keyPressed(KeyEvent e)
     {
-        System.out.println(STR."pressed:\{e.getKeyChar()}");
+        // Note: this is probably more complicated than normal, because I am trying to make it difficult for the user
+        // to reverse the snake directly back onto itself. (Though it isn't impossible, if the user moves fast enough.)
         switch (e.getKeyCode())
         {
             case Constants.leftKey:
@@ -230,9 +259,16 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
         }
     }
 
+    /**
+     * Respond to the user letting off of one of the keys in the keyboard.
+     * @param e the event to be processed containing information about the key that was released.
+     */
     @Override
     public void keyReleased(KeyEvent e)
     {
+        // This, too, is extra complicated because if the user has two keys down and lets go of one, I'd like the other
+        // to potentially take effect, if it isn't going to cause a reversal and if we don't still have two opposing
+        // keys selected.
         switch (e.getKeyCode())
         {
             case Constants.leftKey:
@@ -270,29 +306,4 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
         }
     }
 
-    // Example usage
-    /*
-    public static void main(String[] args) {
-
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Animation Example");
-            AnimationPanel panel = new AnimationPanel();
-            frame.add(panel);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.pack();
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-
-            // Start animation when frame is shown
-            panel.startAnimation();
-
-            // Add window listener to stop animation when closing
-            frame.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosing(WindowEvent e) {
-                    panel.stopAnimation();
-                }
-            });
-        });
-    }*/
 }
