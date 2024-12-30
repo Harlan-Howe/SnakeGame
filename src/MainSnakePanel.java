@@ -11,6 +11,7 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
     private GridSquare[][] theGrid;
     private GridSquare currentSquareWithApple;
 
+    private int currentRowOfHead, currentColOfHead;
     private int currentDirection = Constants.DIRECTION_UP;
     private boolean leftKeyPressed, rightKeyPressed, upKeyPressed, downKeyPressed;
 
@@ -52,8 +53,12 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
 
     public void reset()
     {
+        generateGrid();
         // reset the snake
-
+        currentRowOfHead = Constants.NUM_ROWS/2;
+        currentColOfHead = Constants.NUM_COLUMNS/2;
+        currentDirection = Constants.DIRECTION_UP;
+        theGrid[currentRowOfHead][currentColOfHead].setState(Constants.CELL_STATE_SNAKE_HEAD_N);
         // reset the apple
         resetApple();
 
@@ -116,6 +121,7 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
         // Update your animation state here
         animationStep++;
         // Add your animation logic here
+
     }
 
     @Override
@@ -150,7 +156,7 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
     @Override
     public void keyTyped(KeyEvent e)
     {
-        ; // do nothing.
+         // do nothing.
     }
 
     @Override
