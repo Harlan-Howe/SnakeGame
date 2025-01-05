@@ -156,6 +156,7 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
     {
         // determine the location and state of the square where the head is about to go.
         int destRow, destCol;
+        boolean ateApple = false;
         final int[][] deltas = {{0,+1}, {+1,0}, {0,-1}, {-1,0}};
         destRow = currentRowOfHead+deltas[currentDirection][0];
         destCol = currentColOfHead+deltas[currentDirection][1];
@@ -167,13 +168,14 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
             System.out.println("Ate apple.");
             incrementScore();
             resetApple();
+            ateApple = true;
         }
 
         // clear the head from the current location (????)
         theGrid[currentRowOfHead][currentColOfHead].setState(Constants.CELL_STATE_EMPTY);
 
         // check whether the snake has crashed.
-        if (destination_state != Constants.CELL_STATE_EMPTY)
+        if (destination_state != Constants.CELL_STATE_EMPTY && !ateApple)
         {
             System.out.println("Crashed.");
             running = false;
