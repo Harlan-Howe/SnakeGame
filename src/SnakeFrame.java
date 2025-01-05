@@ -18,7 +18,7 @@ public class SnakeFrame extends JFrame implements ActionListener
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(buildControlPanel(), BorderLayout.NORTH);
         getContentPane().add(buildScorePanel(), BorderLayout.SOUTH);
-        mainPanel = new MainSnakePanel();
+        mainPanel = new MainSnakePanel(this);
         mainPanel.requestFocusInWindow();
         getContentPane().add(mainPanel, BorderLayout.CENTER);
     }
