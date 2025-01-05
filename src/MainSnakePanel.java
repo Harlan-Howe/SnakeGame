@@ -87,15 +87,15 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
      */
     public void resetApple()
     {
-        if (currentSquareWithApple != null && currentSquareWithApple.getState() == Constants.CELL_STATE_APPLE)
-            currentSquareWithApple.setState(Constants.CELL_STATE_EMPTY);
+        GridSquare previousSquareWithApple = currentSquareWithApple;
         do
         {
             currentSquareWithApple = theGrid[(int)(Math.random()*Constants.NUM_ROWS)]
                     [(int)(Math.random()*Constants.NUM_COLUMNS)];
 
         }while (currentSquareWithApple.getState() != Constants.CELL_STATE_EMPTY);
-
+        if (previousSquareWithApple != null && previousSquareWithApple.getState() == Constants.CELL_STATE_APPLE)
+            previousSquareWithApple.setState(Constants.CELL_STATE_EMPTY);
         currentSquareWithApple.setState(Constants.CELL_STATE_APPLE);
     }
 
