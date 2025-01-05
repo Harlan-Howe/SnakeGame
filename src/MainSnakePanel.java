@@ -15,22 +15,24 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
     private int currentDirection = Constants.DIRECTION_UP;
     private boolean leftKeyPressed, rightKeyPressed, upKeyPressed, downKeyPressed;
 
+    private SnakeFrame parentFrame; // the window that holds this panel, which we use to update the score.
+    private int score;
 
-    // Add your animation state variables here
-    private int animationStep = 0;
-
-    public MainSnakePanel() {
-       setBackground(Color.WHITE);
-
-        // Enable double buffering
+    public MainSnakePanel(SnakeFrame parent) {
+        setBackground(Color.WHITE);
+        parentFrame = parent;
         setDoubleBuffered(true);
-
-        setFocusable(true);
+        setFocusable(true); // "focus" is about making this panel be the one that gets told about keyboard events.
         requestFocusInWindow();
         addKeyListener(this);
         reset();
     }
 
+    public void incrementScore()
+    {
+        score++;
+        parentFrame.setScore(score);
+    }
     /**
      * create the 2-d grid of GridSquares and set the ones on the border to have a state of "wall."
      */
@@ -68,6 +70,7 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
     {
         stopAnimation();
         generateGrid();
+        parentFrame.setScore(0);
         // reset the snake
         currentRowOfHead = Constants.NUM_ROWS/2;
         currentColOfHead = Constants.NUM_COLUMNS/2;
@@ -149,10 +152,8 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
      * the step of the animation that happens every DELAY ms. Attempts to move the snake's head by one,
      * potentially eating an apple or crashing the snake in the process.
      */
-    private void updateAnimation() {
-
-        animationStep++;
-
+    private void updateAnimation()
+    {
         // determine the location and state of the square where the head is about to go.
         int destRow, destCol;
         final int[][] deltas = {{0,+1}, {+1,0}, {0,-1}, {-1,0}};
@@ -164,6 +165,7 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
         if (destination_state == Constants.CELL_STATE_APPLE)
         {
             System.out.println("Ate apple.");
+            incrementScore();
             resetApple();
         }
 
