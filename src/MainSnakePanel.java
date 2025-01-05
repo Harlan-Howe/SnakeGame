@@ -243,22 +243,22 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
         // to reverse the snake directly back onto itself. (Though it isn't impossible, if the user moves fast enough.)
         switch (e.getKeyCode())
         {
-            case Constants.leftKey:
+            case Constants.KEY_LEFT:
                 leftKeyPressed = true;
                 if (currentDirection != Constants.DIRECTION_RIGHT)
                     currentDirection = Constants.DIRECTION_LEFT;
                 break;
-            case Constants.rightKey:
+            case Constants.KEY_RIGHT:
                 rightKeyPressed = true;
                 if (currentDirection != Constants.DIRECTION_LEFT)
                     currentDirection = Constants.DIRECTION_RIGHT;
                 break;
-            case Constants.upKey:
+            case Constants.KEY_UP:
                 upKeyPressed = true;
                 if (currentDirection != Constants.DIRECTION_DOWN)
                     currentDirection = Constants.DIRECTION_UP;
                 break;
-            case Constants.downKey:
+            case Constants.KEY_DOWN:
                 downKeyPressed = true;
                 if (currentDirection != Constants.DIRECTION_UP)
                     currentDirection = Constants.DIRECTION_DOWN;
@@ -278,7 +278,7 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
         // keys selected.
         switch (e.getKeyCode())
         {
-            case Constants.leftKey:
+            case Constants.KEY_LEFT:
                 leftKeyPressed = false;
                 if (currentDirection == Constants.DIRECTION_LEFT)
                     if(upKeyPressed && ! downKeyPressed)
@@ -286,7 +286,7 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
                     else if (!upKeyPressed && downKeyPressed)
                         currentDirection = Constants.DIRECTION_DOWN;
                 break;
-            case Constants.rightKey:
+            case Constants.KEY_RIGHT:
                 rightKeyPressed = false;
                 if (currentDirection == Constants.DIRECTION_RIGHT)
                     if(upKeyPressed && ! downKeyPressed)
@@ -294,7 +294,7 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
                     else if (!upKeyPressed && downKeyPressed)
                         currentDirection = Constants.DIRECTION_DOWN;
                 break;
-            case Constants.upKey:
+            case Constants.KEY_UP:
                 upKeyPressed = false;
                 if (currentDirection == Constants.DIRECTION_UP)
                     if(leftKeyPressed && ! rightKeyPressed)
@@ -302,7 +302,7 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
                     else if (!leftKeyPressed && rightKeyPressed)
                         currentDirection = Constants.DIRECTION_RIGHT;
                 break;
-            case Constants.downKey:
+            case Constants.KEY_DOWN:
                 downKeyPressed = false;
                 if (currentDirection == Constants.DIRECTION_DOWN)
                     if(leftKeyPressed && ! rightKeyPressed)

@@ -27,16 +27,16 @@ public interface Constants
     public final int DIRECTION_UP = 3;
 
     //   Initially set up for WASD controls.
-    public final int leftKey = KeyEvent.VK_A;
-    public final int rightKey = KeyEvent.VK_D;
-    public final int upKey = KeyEvent.VK_W;
-    public final int downKey = KeyEvent.VK_S;
+    public final int KEY_LEFT = KeyEvent.VK_A;
+    public final int KEY_RIGHT = KeyEvent.VK_D;
+    public final int KEY_UP = KeyEvent.VK_W;
+    public final int KEY_DOWN = KeyEvent.VK_S;
 
     /* Activate this section instead, if you'd prefer arrow key controls.
-    public final int leftKey = KeyEvent.VK_LEFT;
-    public final int rightKey = KeyEvent.VK_RIGHT;
-    public final int upKey = KeyEvent.VK_UP;
-    public final int downKey = KeyEvent.VK_DOWN;
+    public final int KEY_LEFT = KeyEvent.VK_LEFT;
+    public final int KEY_RIGHT = KeyEvent.VK_RIGHT;
+    public final int KEY_UP = KeyEvent.VK_UP;
+    public final int KEY_DOWN = KeyEvent.VK_DOWN;
     */
 
 
