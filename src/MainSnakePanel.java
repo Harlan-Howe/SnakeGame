@@ -107,6 +107,7 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
             running = true;
             animationThread = new Thread(this);
             animationThread.start();
+            parentFrame.updateRunStatus(true);
         }
     }
 
@@ -121,6 +122,7 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
+
         }
     }
 
@@ -179,6 +181,7 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
         {
             System.out.println("Crashed.");
             running = false;
+            parentFrame.updateRunStatus(false);
             repaint();
             return;
         }
