@@ -8,6 +8,7 @@ public class SnakeFrame extends JFrame implements ActionListener
     private JButton resetButton;
     private final MainSnakePanel mainPanel;
     private JLabel scoreLabel;
+    private final JPanel scorePanel;
 
     public SnakeFrame()
     {
@@ -17,7 +18,8 @@ public class SnakeFrame extends JFrame implements ActionListener
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(buildControlPanel(), BorderLayout.NORTH);
-        getContentPane().add(buildScorePanel(), BorderLayout.SOUTH);
+        scorePanel = buildScorePanel();
+        getContentPane().add(scorePanel, BorderLayout.SOUTH);
         mainPanel = new MainSnakePanel(this);
         mainPanel.requestFocusInWindow();
         getContentPane().add(mainPanel, BorderLayout.CENTER);
@@ -46,6 +48,14 @@ public class SnakeFrame extends JFrame implements ActionListener
     public void setScore(int score)
     {
         scoreLabel.setText(STR."Score: \{score}");
+    }
+
+    public void updateRunStatus(boolean isRunning)
+    {
+        if (isRunning)
+            scorePanel.setBackground(Color.GREEN);
+        else
+            scorePanel.setBackground(Color.RED);
     }
     @Override
     public void actionPerformed(ActionEvent e)
