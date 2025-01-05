@@ -2,6 +2,8 @@ import java.awt.event.KeyEvent;
 
 public interface Constants
 {
+    public final long DELAY = 250; // 0.25 seconds in milliseconds
+
     public final int CELL_SIZE = 20;
     public final int NUM_COLUMNS = 40;
     public final int NUM_ROWS = 40;

@@ -4,7 +4,7 @@ import java.awt.event.*;
 
 // NOTE: initial draft of this class was written by Flint K12.
 public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
-    private static final long DELAY = 250; // 0.25 seconds in milliseconds
+
     private volatile boolean running;
     private Thread animationThread;
 
@@ -142,7 +142,7 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
 
             // Sleep for the specified delay
             try {
-                Thread.sleep(DELAY);
+                Thread.sleep(Constants.DELAY);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 break;
