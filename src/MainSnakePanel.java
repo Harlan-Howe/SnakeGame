@@ -15,7 +15,7 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
     private int currentDirection = Constants.DIRECTION_UP;
     private boolean leftKeyPressed, rightKeyPressed, upKeyPressed, downKeyPressed;
 
-    private SnakeFrame parentFrame; // the window that holds this panel, which we use to update the score.
+    private final SnakeFrame parentFrame; // the window that holds this panel, which we use to update the score.
     private int score;
 
     public MainSnakePanel(SnakeFrame parent) {
