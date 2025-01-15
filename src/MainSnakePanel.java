@@ -162,6 +162,8 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
      */
     private void updateAnimation()
     {
+        // TODO: This is the primary method you will be working in.
+
         // determine the location and state of the square where the head is about to go.
         int destRow, destCol;
         boolean ateApple = false;
