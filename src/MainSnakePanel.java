@@ -2,19 +2,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-// NOTE: initial draft of this class was written by Flint K12.
+// NOTE: initial draft of this class (without the snake) was written by Flint K12.
 public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
 
+    // variables about the multithreading part of the game, which allows animation to happen.
     private volatile boolean running;
     private Thread animationThread;
 
+    // information about the state of the board & apple
     private GridSquare[][] theGrid;
     private GridSquare currentSquareWithApple;
 
+    // state of the snake
     private int currentRowOfHead, currentColOfHead;
     private int currentDirection = Constants.DIRECTION_UP;
+
+    // state of the four directional keys on the keyboard
     private boolean leftKeyPressed, rightKeyPressed, upKeyPressed, downKeyPressed;
 
+    // info about the score and managing its appearance
     private final SnakeFrame parentFrame; // the window that holds this panel, which we use to update the score.
     private int score;
 
