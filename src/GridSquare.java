@@ -1,3 +1,4 @@
+import javax.swing.plaf.basic.BasicSliderUI;
 import java.awt.*;
 
 public class GridSquare
@@ -5,6 +6,8 @@ public class GridSquare
     private final int xPos, yPos;
     private int state;
     private final Color BROWN = new Color(128,64,0);
+    private final Stroke thickLine = new BasicStroke(4);
+    private final Stroke thinLine = new BasicStroke(1);
 
     public GridSquare(int x, int y)
     {
@@ -32,6 +35,9 @@ public class GridSquare
     {
         return xPos/Constants.CELL_SIZE;
     }
+
+    public void setThickPen(Graphics g) {((Graphics2D)g).setStroke(thickLine);}
+    public void setThinPen(Graphics g) {((Graphics2D)g).setStroke(thinLine);}
 
     public void drawSelf(Graphics g)
     {
@@ -72,8 +78,11 @@ public class GridSquare
         g.setColor(Color.GREEN);
         g.fillOval(xPos+3, yPos+3, Constants.CELL_SIZE-6, Constants.CELL_SIZE-6);
         g.setColor(BROWN);
-        g.fillOval(xPos+Constants.CELL_SIZE/2-2, yPos+4, 4, 4);
-        g.fillOval(xPos+Constants.CELL_SIZE/2-2, yPos+Constants.CELL_SIZE-8, 4, 4);
+//        g.fillOval(xPos+Constants.CELL_SIZE/2-2, yPos+4, 4, 4);
+//        g.fillOval(xPos+Constants.CELL_SIZE/2-2, yPos+Constants.CELL_SIZE-8, 4, 4);
+        setThickPen(g);
+        g.drawLine(xPos+3, yPos+Constants.CELL_SIZE/2, xPos+Constants.CELL_SIZE-3, yPos+Constants.CELL_SIZE/2 );
+        setThinPen(g);
     }
 
     public void drawBody_N_S(Graphics g)
@@ -81,16 +90,25 @@ public class GridSquare
         g.setColor(Color.GREEN);
         g.fillOval(xPos+3, yPos+3, Constants.CELL_SIZE-6, Constants.CELL_SIZE-6);
         g.setColor(BROWN);
-        g.fillOval(xPos+4, yPos+Constants.CELL_SIZE/2-2, 4, 4);
-        g.fillOval(xPos+Constants.CELL_SIZE-8,yPos+Constants.CELL_SIZE/2-2, 4, 4);
+//        g.fillOval(xPos+4, yPos+Constants.CELL_SIZE/2-2, 4, 4);
+//        g.fillOval(xPos+Constants.CELL_SIZE-8,yPos+Constants.CELL_SIZE/2-2, 4, 4);
+        setThickPen(g);
+        g.drawLine(xPos+Constants.CELL_SIZE/2, yPos+3, xPos+Constants.CELL_SIZE/2, yPos+Constants.CELL_SIZE-3);
+        setThinPen(g);
     }
     public void drawBody_NW_SE(Graphics g)
     {
         g.setColor(Color.GREEN);
         g.fillOval(xPos+3, yPos+3, Constants.CELL_SIZE-6, Constants.CELL_SIZE-6);
         g.setColor(BROWN);
-        g.fillOval(xPos+Constants.CELL_SIZE*65/100-2, yPos+Constants.CELL_SIZE*35/100-2, 4, 4);
-        g.fillOval(xPos+Constants.CELL_SIZE*35/100-2, yPos+Constants.CELL_SIZE*65/100-2, 4, 4);
+//        g.fillOval(xPos+Constants.CELL_SIZE*65/100-2, yPos+Constants.CELL_SIZE*35/100-2, 4, 4);
+//        g.fillOval(xPos+Constants.CELL_SIZE*35/100-2, yPos+Constants.CELL_SIZE*65/100-2, 4, 4);
+        setThickPen(g);
+        g.drawLine(xPos+Constants.CELL_SIZE/2-(Constants.CELL_SIZE-6)/2*71/100,
+                yPos+Constants.CELL_SIZE/2-(Constants.CELL_SIZE-6)/2*71/100,
+                xPos+Constants.CELL_SIZE/2+(Constants.CELL_SIZE-6)/2*71/100,
+                yPos+Constants.CELL_SIZE/2+(Constants.CELL_SIZE-6)/2*71/100);
+        setThinPen(g);
     }
 
     public void drawBody_NE_SW(Graphics g)
@@ -98,11 +116,17 @@ public class GridSquare
         g.setColor(Color.GREEN);
         g.fillOval(xPos+3, yPos+3, Constants.CELL_SIZE-6, Constants.CELL_SIZE-6);
         g.setColor(BROWN);
-        g.fillOval(xPos+Constants.CELL_SIZE*35/100-2, yPos+Constants.CELL_SIZE*35/100-2, 4, 4);
-        g.fillOval(xPos+Constants.CELL_SIZE*65/100-2, yPos+Constants.CELL_SIZE*65/100-2, 4, 4);
+//        g.fillOval(xPos+Constants.CELL_SIZE*35/100-2, yPos+Constants.CELL_SIZE*35/100-2, 4, 4);
+//        g.fillOval(xPos+Constants.CELL_SIZE*65/100-2, yPos+Constants.CELL_SIZE*65/100-2, 4, 4);
+        setThickPen(g);
+        g.drawLine(xPos+Constants.CELL_SIZE/2-(Constants.CELL_SIZE-6)/2*71/100,
+                yPos+Constants.CELL_SIZE/2+(Constants.CELL_SIZE-6)/2*71/100,
+                xPos+Constants.CELL_SIZE/2+(Constants.CELL_SIZE-6)/2*71/100,
+                yPos+Constants.CELL_SIZE/2-(Constants.CELL_SIZE-6)/2*71/100);
+        setThinPen(g);
     }
 
-    public void drawHead_E(Graphics g)
+    public void drawHead_W(Graphics g)
     {
         g.setColor(Color.GREEN);
         g.fillRoundRect(xPos+3, yPos+3, Constants.CELL_SIZE-6, Constants.CELL_SIZE-6, 4, 4);
@@ -113,7 +137,7 @@ public class GridSquare
         g.drawLine(xPos, yPos+Constants.CELL_SIZE/2, xPos+Constants.CELL_SIZE/2, yPos+Constants.CELL_SIZE/2);
     }
 
-    public void drawHead_W(Graphics g)
+    public void drawHead_E(Graphics g)
     {
         g.setColor(Color.GREEN);
         g.fillRoundRect(xPos+3, yPos+3, Constants.CELL_SIZE-6, Constants.CELL_SIZE-6, 4, 4);
