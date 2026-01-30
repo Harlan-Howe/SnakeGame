@@ -15,9 +15,9 @@ public interface Constants
     public final int CELL_STATE_SNAKE_BODY_N_S = 4;
     public final int CELL_STATE_SNAKE_BODY_NE_SW = 5;
     public final int CELL_STATE_SNAKE_BODY_NW_SE = 6;
-    public final int CELL_STATE_SNAKE_HEAD_W = 7;
+    public final int CELL_STATE_SNAKE_HEAD_E = 7;
     public final int CELL_STATE_SNAKE_HEAD_S = 8;
-    public final int CELL_STATE_SNAKE_HEAD_E = 9;
+    public final int CELL_STATE_SNAKE_HEAD_W = 9;
     public final int CELL_STATE_SNAKE_HEAD_N = 10;
     public final int CELL_STATE_SNAKE_TAIL = 11;
 

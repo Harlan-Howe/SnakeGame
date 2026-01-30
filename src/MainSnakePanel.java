@@ -197,7 +197,7 @@ public class MainSnakePanel extends JPanel implements Runnable, KeyListener{
         // move the head to the new location (????)
         currentRowOfHead = destRow;
         currentColOfHead = destCol;
-        theGrid[currentRowOfHead][currentColOfHead].setState(Constants.CELL_STATE_SNAKE_HEAD_W+currentDirection);
+        theGrid[currentRowOfHead][currentColOfHead].setState(Constants.CELL_STATE_SNAKE_HEAD_E+currentDirection);
 
         repaint();
     }
