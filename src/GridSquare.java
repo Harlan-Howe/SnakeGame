@@ -128,6 +128,7 @@ public class GridSquare
 
     public void drawHead_W(Graphics g)
     {
+        System.out.println("West");
         g.setColor(Color.GREEN);
         g.fillRoundRect(xPos+3, yPos+3, Constants.CELL_SIZE-6, Constants.CELL_SIZE-6, 4, 4);
         g.setColor(Color.BLACK);
