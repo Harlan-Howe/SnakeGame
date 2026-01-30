@@ -47,7 +47,7 @@ public class SnakeFrame extends JFrame implements ActionListener
 
     public void setScore(int score)
     {
-        scoreLabel.setText(STR."Score: \{score}");
+        scoreLabel.setText("Score: " + score);
     }
 
     public void updateRunStatus(boolean isRunning)

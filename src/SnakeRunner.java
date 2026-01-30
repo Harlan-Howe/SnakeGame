@@ -1,6 +1,6 @@
 public class SnakeRunner
 {
-    public void main()
+    public static void main(String[] args)
     {
         SnakeFrame app = new SnakeFrame();
         app.setVisible(true);
